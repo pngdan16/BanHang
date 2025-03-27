@@ -1,0 +1,58 @@
+﻿@model BanHang.Models.Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<h2 class="mb-4">Edit Product</h2>
+
+<div class="card shadow p-4">
+    <form asp-action="Update" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ImageUrl" /> <!-- Giữ lại ảnh cũ nếu không cập nhật -->
+
+        <div class="form-group">
+            <label asp-for="Name" class="form-label">Product Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Price" class="form-label">Price</label>
+            <input asp-for="Price" type="number" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description" class="form-label">Description</label>
+            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <!-- Hiển thị ảnh cũ -->
+        <div class="form-group">
+            <label>Current Image</label>
+            <div>
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="Product Image" class="img-thumbnail" style="max-width: 150px;" />
+                }
+                else
+                {
+                    <p>No image available</p>
+                }
+            </div>
+        </div>
+
+        <!-- Upload ảnh mới -->
+        <div class="form-group">
+            <label>Upload New Image</label>
+            <input type="file" name="imageFile" class="form-control" />
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            <button type="submit" class="btn btn-primary">Update Product</button>
+        </div>
+    </form>
+</div>

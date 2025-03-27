@@ -1,0 +1,95 @@
+﻿@model IEnumerable<BanHang.Models.Product>
+
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Danh sách sản phẩm</h1>
+        <a asp-action="Add" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Thêm sản phẩm mới
+        </a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var product in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <!-- Hình ảnh sản phẩm -->
+                    <div class="product-image-container" style="height: 200px; overflow: hidden;">
+                        @if (!string.IsNullOrEmpty(product.ImageUrl))
+                        {
+                            <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name"
+                                style="object-fit: cover; height: 100%; width: 100%;">
+                        }
+                        else
+                        {
+                            <div class="no-image d-flex justify-content-center align-items-center bg-light"
+                                style="height: 100%;">
+                                <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Thông tin sản phẩm -->
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text text-danger fw-bold">@product.Price.ToString("N0") VNĐ</p>
+                        <p class="card-text text-truncate">@product.Description</p>
+
+                        @if (product.Category != null)
+                        {
+                            <div class="mb-3">
+                                <span class="badge bg-secondary">@product.Category.Name</span>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Các nút hành động -->
+                    <div class="card-footer bg-transparent">
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">
+                                <i class="bi bi-eye"></i> Chi tiết
+                            </a>
+                            <div>
+                                <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger"
+                                    onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info mt-4">
+            Không có sản phẩm nào. Hãy <a asp-action="Add">thêm sản phẩm mới</a>.
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-hide alert after 5 seconds
+        setTimeout(function () {
+            $('.alert-success').alert('close');
+        }, 5000);
+    </script>
+}

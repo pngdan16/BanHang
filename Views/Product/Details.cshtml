@@ -1,0 +1,92 @@
+@model BanHang.Models.Product
+
+@{
+  ViewData["Title"] = Model.Name;
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h1 class="h3 mb-0">Chi tiết sản phẩm</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Hình ảnh sản phẩm -->
+                <div class="col-md-5">
+                    <div class="product-images mb-4">
+                        <!-- Hình ảnh chính -->
+                        <div class="main-image mb-3">
+                            <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid rounded" />
+                        </div>
+
+                        <!-- Các hình ảnh phụ -->
+                        @if (Model.Images != null && Model.Images.Any())
+                        {
+                              <div class="additional-images">
+                                  <h6 class="text-muted">Hình ảnh bổ sung:</h6>
+                                  <div class="d-flex flex-wrap">
+                                      @foreach (var image in Model.Images)
+                                      {
+                                            <div class="thumbnail me-2 mb-2">
+                                                <img src="@image.Url" alt="@Model.Name" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;" />
+                                            </div>
+                                      }
+                                  </div>
+                              </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Thông tin sản phẩm -->
+                <div class="col-md-7">
+                    <div class="product-details">
+                        <h2 class="fw-bold mb-3">@Model.Name</h2>
+
+                        <div class="price mb-3">
+                            <span class="fs-4 fw-bold text-danger">@Model.Price.ToString("N0") VNĐ</span>
+                        </div>
+
+                        <div class="category mb-3">
+                            <span class="fw-bold">Danh mục:</span>
+                            <span class="badge bg-secondary">@Model.Category?.Name</span>
+                        </div>
+
+                        <div class="description mb-4">
+                            <h5 class="fw-bold">Mô tả sản phẩm</h5>
+                            <p>@Model.Description</p>
+                        </div>
+
+                        <div class="actions mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Quay lại
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning ms-2">
+                                <i class="bi bi-pencil"></i> Chỉnh sửa
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger ms-2" 
+                               onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">
+                                <i class="bi bi-trash"></i> Xóa
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+      <script>
+          // JavaScript để hiển thị ảnh phụ dưới dạng slideshow hoặc zoom nếu cần
+          document.addEventListener('DOMContentLoaded', function() {
+              const thumbnails = document.querySelectorAll('.thumbnail img');
+              const mainImage = document.querySelector('.main-image img');
+            
+              thumbnails.forEach(thumb => {
+                  thumb.addEventListener('click', function() {
+                      mainImage.src = this.src;
+                  });
+              });
+          });
+      </script>
+}

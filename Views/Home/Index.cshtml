@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ";
+}
+@model IEnumerable<BanHang.Models.Product>
+
+<div class="container mt-4">
+    <h1 class="display-4 text-center">Welcome to Our Store</h1>
+
+    <!-- CAROUSEL HIỂN THỊ ẢNH SẢN PHẨM -->
+    <div id="productCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active text-center">
+                <img src="/images/banner1.png" class="d-block img-fluid rounded shadow mx-auto"
+                    style="max-width: 1200px; max-height: 476px; object-fit: contain;" alt="Product 1">
+            </div>
+            <div class="carousel-item text-center">
+                <img src="/images/banner2.png" class="d-block img-fluid rounded shadow mx-auto"
+                    style="max-width: 1200px; max-height: 476px; object-fit: contain;" alt="Product 2">
+            </div>
+            <div class="carousel-item text-center">
+                <img src="/images/banner3.jpg" class="d-block img-fluid rounded shadow mx-auto"
+                    style="max-width: 1200px; max-height: 476px; object-fit: contain;" alt="Product 3">
+            </div>
+        </div>
+
+        <!-- Điều hướng carousel -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- DANH SÁCH SẢN PHẨM TĨNH -->
+    <h2 class="text-center mb-4">Our Products</h2>
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-4 mb-4   ">
+                <div class="card h-100 shadow">
+                    <img src="@product.ImageUrl" class="card-img-top" style="height: 200px; object-fit: cover;"
+                        alt="Product 1">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="fw-bold text-primary">Price: @product.Price</p>
+                        <a href="@Url.Action("ProductDetail", "Home", new { id = product.Id })" class="btn btn-primary">Xem
+                            chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
