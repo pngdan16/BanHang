@@ -1,0 +1,49 @@
+/* _content/BanHang/Views/Shared/_Layout.cshtml.rz.scp.css */
+/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand[b-xy9k07wceq] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a[b-xy9k07wceq] {
+  color: #0077cc;
+}
+
+.btn-primary[b-xy9k07wceq] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-xy9k07wceq], .nav-pills .show > .nav-link[b-xy9k07wceq] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.border-top[b-xy9k07wceq] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-xy9k07wceq] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-xy9k07wceq] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-xy9k07wceq] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer[b-xy9k07wceq] {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
