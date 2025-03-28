@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BanHang")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+98a412502dde903accac1f50cab563a9f07869f6")]
 [assembly: System.Reflection.AssemblyProductAttribute("BanHang")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BanHang")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
