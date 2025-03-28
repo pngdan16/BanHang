@@ -433,4 +433,3 @@ C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\refint\Ban
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\BanHang.pdb
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\BanHang.genruntimeconfig.cache
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\ref\BanHang.dll
-C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

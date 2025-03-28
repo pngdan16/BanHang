@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using BanHang.Models;
 using BanHang.Models.Identity;
 using BanHang.Reposirories.Interfaces;
@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Đăng ký DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TranPhuongDanConnectionString")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DeployConnectionString")));
 
 // Register Identity services
 /*builder.Services.AddI<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -57,6 +57,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}"
 );
 
-app.MapRazorPages(); 
+app.MapRazorPages();
 
 app.Run();
