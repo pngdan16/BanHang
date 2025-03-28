@@ -20,6 +20,14 @@
         </div>
     }
 
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         @foreach (var product in Model)
         {
@@ -65,8 +73,7 @@
                                 <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger"
-                                    onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">
+                                <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </div>
@@ -87,9 +94,9 @@
 
 @section Scripts {
     <script>
-        // Auto-hide alert after 5 seconds
+        // Auto-hide alerts after 5 seconds
         setTimeout(function () {
-            $('.alert-success').alert('close');
+            $('.alert-success, .alert-danger').alert('close');
         }, 5000);
     </script>
 }

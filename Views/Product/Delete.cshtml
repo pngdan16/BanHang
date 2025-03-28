@@ -1,12 +1,89 @@
 ﻿@model BanHang.Models.Product
-<h2>Are you sure you want to delete this?</h2>
-<div>
-	<h4>Name: @Model.Name</h4>
-	<h4>Price: @Model.Price</h4>
-	<h4>Description: @Model.Description</h4>
+
+@{
+	ViewData["Title"] = "Xóa sản phẩm";
+}
+
+<div class="container mt-4">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card shadow-sm border-0">
+				<div class="card-header bg-danger text-white">
+					<h3 class="mb-0"><i class="bi bi-exclamation-triangle-fill me-2"></i>Xác nhận xóa sản phẩm</h3>
+				</div>
+				<div class="card-body">
+					<div class="alert alert-warning">
+						<h5 class="alert-heading"><i class="bi bi-exclamation-circle me-2"></i>Cảnh báo</h5>
+						<p>Bạn có chắc chắn muốn xóa sản phẩm này? Hành động này <strong>không thể hoàn tác</strong>.</p>
+					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-4">
+							<!-- Hình ảnh sản phẩm -->
+							<div class="text-center mb-3">
+								@if (!string.IsNullOrEmpty(Model.ImageUrl))
+								{
+									<img src="@Model.ImageUrl" class="img-fluid rounded" style="max-height: 250px" alt="@Model.Name" />
+								}
+								else
+								{
+									<div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 250px">
+										<i class="bi bi-image text-muted" style="font-size: 3rem"></i>
+									</div>
+								}
+							</div>
+
+							<!-- Hình ảnh bổ sung -->
+							@if (Model.Images != null && Model.Images.Any())
+							{
+								<div class="d-flex flex-wrap">
+									@foreach (var image in Model.Images)
+									{
+										<div class="p-1" style="width: 80px; height: 80px">
+											<img src="@image.Url" class="img-thumbnail" style="width: 100%; height: 100%; object-fit: cover"
+												alt="Hình ảnh bổ sung" />
+										</div>
+									}
+								</div>
+								<div class="small text-muted mt-2">@Model.Images.Count hình ảnh bổ sung sẽ bị xóa</div>
+							}
+						</div>
+						<div class="col-md-8">
+							<!-- Thông tin sản phẩm -->
+							<div class="ps-md-4">
+								<h4 class="fw-bold mb-3">@Model.Name</h4>
+
+								<div class="mb-3">
+									<span class="fw-bold">Giá:</span>
+									<span class="text-danger fs-5">@Model.Price.ToString("N0") VNĐ</span>
+								</div>
+
+								<div class="mb-3">
+									<span class="fw-bold">Danh mục:</span>
+									<span class="badge bg-secondary">@(Model.Category?.Name ?? "Không có danh mục")</span>
+								</div>
+
+								<div class="mb-3">
+									<h6 class="fw-bold">Mô tả:</h6>
+									<p class="text-muted">@Model.Description</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<form asp-action="DeleteConfirmed" method="post" class="mt-4">
+						<input type="hidden" name="id" value="@Model.Id" />
+						<div class="d-flex justify-content-center gap-3">
+							<a asp-action="Index" class="btn btn-secondary btn-lg">
+								<i class="bi bi-arrow-left me-2"></i>Quay lại
+							</a>
+							<button type="submit" class="btn btn-danger btn-lg">
+								<i class="bi bi-trash me-2"></i>Xóa sản phẩm
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<form asp-action="DeleteConfirmed" method="post">
-	<input type="hidden" asp-for="Id" />
-	<input type="submit" value="Delete" class="btn btn-danger" /> |
-	<a asp-action="Index">Cancel</a>
-</form>

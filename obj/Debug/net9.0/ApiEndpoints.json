@@ -1,0 +1,65 @@
+[
+  {
+    "ContainingType": "BanHang.Controllers.MediaController",
+    "Method": "DeleteMedia",
+    "RelativePath": "api/Media/{publicId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "publicId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BanHang.Controllers.MediaController",
+    "Method": "GetImageWithTransformations",
+    "RelativePath": "api/Media/image/{publicId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "publicId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "width",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "height",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "crop",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BanHang.Controllers.MediaController",
+    "Method": "UploadImage",
+    "RelativePath": "api/Media/upload/image",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

@@ -341,3 +341,6 @@ C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net8.0\refint\Ban
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net8.0\BanHang.pdb
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net8.0\BanHang.genruntimeconfig.cache
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net8.0\ref\BanHang.dll
+C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net8.0\BanHang.sourcelink.json
+C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\bin\Debug\net8.0\CloudinaryDotNet.dll
+C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\bin\Debug\net8.0\Newtonsoft.Json.dll

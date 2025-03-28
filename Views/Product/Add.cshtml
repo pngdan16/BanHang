@@ -6,85 +6,161 @@
 }
 
 <div class="container mt-4">
-    <h1>Thêm sản phẩm</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="bi bi-plus-circle me-2"></i>Thêm sản phẩm mới</h3>
+                </div>
+                <div class="card-body">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger mb-4">
+                            <h5 class="alert-heading"><i class="bi bi-exclamation-triangle me-2"></i>Có lỗi xảy ra:</h5>
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                        </div>
+                    }
 
-    <form asp-action="Add" enctype="multipart/form-data" class="mt-4">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-        <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
-                Thông tin cơ bản
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group mb-3">
-                            <label asp-for="Name" class="form-label"></label>
-                            <input asp-for="Name" class="form-control" />
-                            <span asp-validation-for="Name" class="text-danger"></span>
+                    <form asp-action="Add" enctype="multipart/form-data" class="needs-validation" id="productForm"
+                        novalidate>
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-header bg-light">
+                                        <h5 class="mb-0"><i class="bi bi-info-circle me-2"></i>Thông tin cơ bản</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3">
+                                                    <input asp-for="Name" class="form-control"
+                                                        placeholder="Tên sản phẩm" required minlength="3"
+                                                        maxlength="100" />
+                                                    <label asp-for="Name">Tên sản phẩm <span
+                                                            class="text-danger">*</span></label>
+                                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                                    <div class="form-text">Nhập tên sản phẩm từ 3-100 ký tự</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3">
+                                                    <input asp-for="Price" class="form-control" type="number"
+                                                        step="1000" min="0" placeholder="Giá" required id="priceInput"
+                                                        onkeydown="return event.keyCode !== 189" />
+                                                    <label asp-for="Price">Giá <span
+                                                            class="text-danger">*</span></label>
+                                                    <span asp-validation-for="Price" class="text-danger"></span>
+                                                    <div id="priceError" class="invalid-feedback">Giá sản phẩm không
+                                                        được âm</div>
+                                                    <div class="form-text mt-1" id="formattedPrice">Giá: 0 VNĐ</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3">
+                                                    <select asp-for="CategoryId" asp-items="ViewBag.Categories"
+                                                        class="form-select" required>
+                                                        <option value="">-- Chọn danh mục --</option>
+                                                    </select>
+                                                    <label asp-for="CategoryId">Danh mục <span
+                                                            class="text-danger">*</span></label>
+                                                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3">
+                                                    <textarea asp-for="Description" class="form-control"
+                                                        style="height: 100px" placeholder="Mô tả sản phẩm" required
+                                                        minlength="10" maxlength="500"></textarea>
+                                                    <label asp-for="Description">Mô tả <span
+                                                            class="text-danger">*</span></label>
+                                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                                    <div class="form-text">
+                                                        <span id="descriptionCount">0</span>/500 ký tự
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label asp-for="Price" class="form-label"></label>
-                            <input asp-for="Price" class="form-control" type="number" step="0.01" />
-                            <span asp-validation-for="Price" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group mb-3">
-                            <label asp-for="CategoryId" class="form-label"></label>
-                            <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control">
-                                <option value="">-- Chọn danh mục --</option>
-                            </select>
-                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-header bg-light">
+                                        <h5 class="mb-0"><i class="bi bi-images me-2"></i>Hình ảnh sản phẩm</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label asp-for="ImageFile" class="form-label fw-bold">Hình ảnh chính
+                                                        <span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text"><i
+                                                                class="bi bi-image"></i></span>
+                                                        <input type="file" asp-for="ImageFile" class="form-control"
+                                                            accept="image/jpeg,image/png,image/gif,image/webp"
+                                                            id="mainImageInput" required />
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        <span asp-validation-for="ImageFile"
+                                                            class="text-danger d-block"></span>
+                                                        <small class="text-muted">
+                                                            <i class="bi bi-info-circle"></i> Định dạng hỗ trợ: jpg,
+                                                            jpeg, png, gif, webp (tối đa 10MB)
+                                                        </small>
+                                                    </div>
+                                                    <div class="mt-3" id="mainImagePreview"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label asp-for="AdditionalImages" class="form-label fw-bold">Hình
+                                                        ảnh bổ sung</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text"><i
+                                                                class="bi bi-images"></i></span>
+                                                        <input type="file" asp-for="AdditionalImages" multiple
+                                                            class="form-control"
+                                                            accept="image/jpeg,image/png,image/gif,image/webp"
+                                                            id="additionalImagesInput" />
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        <span id="additionalImagesError"
+                                                            class="text-danger d-block"></span>
+                                                        <span asp-validation-for="AdditionalImages"
+                                                            class="text-danger d-block"></span>
+                                                        <small class="text-muted">
+                                                            <i class="bi bi-info-circle"></i> Chọn nhiều hình ảnh (tối
+                                                            đa 5 hình, mỗi hình tối đa 10MB)
+                                                        </small>
+                                                    </div>
+                                                    <div class="mt-3" id="additionalImagesPreview"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label asp-for="Description" class="form-label"></label>
-                            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
-                            <span asp-validation-for="Description" class="text-danger"></span>
+                        <div class="d-flex justify-content-center gap-3 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg px-5" id="submitButton">
+                                <i class="bi bi-save me-2"></i> Thêm sản phẩm
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                                <i class="bi bi-x-circle me-2"></i> Hủy
+                            </a>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-
-        <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
-                Hình ảnh sản phẩm
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group mb-3">
-                            <label asp-for="ImageFile" class="form-label"></label>
-                            <input type="file" asp-for="ImageFile" class="form-control" accept="image/*" />
-                            <span asp-validation-for="ImageFile" class="text-danger"></span>
-                            <small class="text-muted">Hình ảnh chính hiển thị sản phẩm</small>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group mb-3">
-                            <label asp-for="AdditionalImages" class="form-label"></label>
-                            <input type="file" asp-for="AdditionalImages" multiple class="form-control"
-                                accept="image/*" />
-                            <small class="text-muted">Có thể chọn nhiều hình ảnh (tối đa 5 hình)</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="image-preview mt-3" id="imagePreview">
-                    <!-- Preview will be shown here -->
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center mt-4">
-            <button type="submit" class="btn btn-primary btn-lg px-5">
-                <i class="bi bi-save"></i> Thêm sản phẩm
-            </button>
-            <a asp-action="Index" class="btn btn-outline-secondary btn-lg ms-2">Hủy</a>
-        </div>
-    </form>
+    </div>
 </div>
 
 @section Scripts {
@@ -93,59 +169,239 @@
     }
 
     <script>
-        // Image preview functionality
-        document.querySelector('input[name="ImageFile"]').addEventListener('change', function (e) {
-            const preview = document.getElementById('imagePreview');
-            preview.innerHTML = '';
+        // Format price as currency
+        document.addEventListener('DOMContentLoaded', function () {
+            const priceInput = document.getElementById('priceInput');
+            const formattedPrice = document.getElementById('formattedPrice');
+            const descriptionTextarea = document.getElementById('Description');
+            const descriptionCount = document.getElementById('descriptionCount');
+            const priceError = document.getElementById('priceError');
 
-            if (this.files && this.files[0]) {
-                const mainPreviewDiv = document.createElement('div');
-                mainPreviewDiv.className = 'mb-3';
+            // Validate price is positive
+            priceInput.addEventListener('input', function () {
+                const value = parseFloat(this.value);
+                if (value < 0) {
+                    this.value = 0; // Reset to 0 if negative
+                    priceError.style.display = 'block';
+                    this.classList.add('is-invalid');
+                } else {
+                    priceError.style.display = 'none';
+                    this.classList.remove('is-invalid');
+                }
+                updateFormattedPrice(this.value);
+            });
 
-                const label = document.createElement('p');
-                label.textContent = 'Hình ảnh chính:';
-                label.className = 'fw-bold';
+            // Prevent negative sign input
+            priceInput.addEventListener('keypress', function (e) {
+                if (e.key === '-' || e.key === 'e' || e.key === 'E') {
+                    e.preventDefault();
+                }
+            });
 
-                const img = document.createElement('img');
-                img.className = 'img-thumbnail';
-                img.style.maxHeight = '200px';
-                img.src = URL.createObjectURL(this.files[0]);
-
-                mainPreviewDiv.appendChild(label);
-                mainPreviewDiv.appendChild(img);
-                preview.appendChild(mainPreviewDiv);
+            // Format initial price if it exists
+            if (priceInput.value) {
+                updateFormattedPrice(priceInput.value);
             }
-        });
 
-        document.querySelector('input[id="AdditionalImages"]').addEventListener('change', function (e) {
-            const preview = document.getElementById('imagePreview');
-            const additionalPreviewDiv = document.createElement('div');
-            additionalPreviewDiv.className = 'mt-3';
+            // Format price with VND currency
+            function updateFormattedPrice(value) {
+                const price = parseFloat(value) || 0;
+                if (price < 0) return; // Skip negative values
 
-            if (this.files && this.files.length > 0) {
-                const label = document.createElement('p');
-                label.textContent = 'Hình ảnh bổ sung:';
-                label.className = 'fw-bold';
-                additionalPreviewDiv.appendChild(label);
-
-                const imagesContainer = document.createElement('div');
-                imagesContainer.className = 'd-flex flex-wrap gap-2';
-
-                Array.from(this.files).forEach(file => {
-                    const imgContainer = document.createElement('div');
-
-                    const img = document.createElement('img');
-                    img.className = 'img-thumbnail';
-                    img.style.maxHeight = '150px';
-                    img.style.maxWidth = '150px';
-                    img.src = URL.createObjectURL(file);
-
-                    imgContainer.appendChild(img);
-                    imagesContainer.appendChild(imgContainer);
+                const formatter = new Intl.NumberFormat('vi-VN', {
+                    style: 'currency',
+                    currency: 'VND',
+                    maximumFractionDigits: 0
                 });
 
-                additionalPreviewDiv.appendChild(imagesContainer);
-                preview.appendChild(additionalPreviewDiv);
+                formattedPrice.textContent = `Giá: ${formatter.format(price)}`;
+            }
+
+            // Update character count for description
+            if (descriptionTextarea) {
+                // Set initial count
+                descriptionCount.textContent = descriptionTextarea.value.length;
+
+                // Update count on input
+                descriptionTextarea.addEventListener('input', function () {
+                    descriptionCount.textContent = this.value.length;
+
+                    // Add warning class if approaching limit
+                    if (this.value.length > 400) {
+                        descriptionCount.classList.add('text-warning');
+                        if (this.value.length > 480) {
+                            descriptionCount.classList.remove('text-warning');
+                            descriptionCount.classList.add('text-danger');
+                        }
+                    } else {
+                        descriptionCount.classList.remove('text-warning', 'text-danger');
+                    }
+                });
+            }
+
+            // Validate image file size and type before form submission
+            const mainImageInput = document.getElementById('mainImageInput');
+            const additionalImagesInput = document.getElementById('additionalImagesInput');
+            const mainImagePreview = document.getElementById('mainImagePreview');
+            const additionalImagesPreview = document.getElementById('additionalImagesPreview');
+            const submitButton = document.getElementById('submitButton');
+            const productForm = document.getElementById('productForm');
+            const additionalImagesError = document.getElementById('additionalImagesError');
+
+            const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+            const MAX_ADDITIONAL_IMAGES = 5;
+            const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+
+            // Validate main image
+            mainImageInput.addEventListener('change', function () {
+                validateMainImage();
+                updateMainImagePreview();
+            });
+
+            // Validate additional images
+            additionalImagesInput.addEventListener('change', function () {
+                validateAdditionalImages();
+                updateAdditionalImagesPreview();
+            });
+
+            // Form submission validation
+            productForm.addEventListener('submit', function (e) {
+                // Validate price before submission
+                const price = parseFloat(priceInput.value);
+                if (isNaN(price) || price < 0) {
+                    e.preventDefault();
+                    priceInput.classList.add('is-invalid');
+                    priceError.style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return false;
+                }
+
+                if (!validateMainImage() || !validateAdditionalImages()) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+
+            function validateMainImage() {
+                const file = mainImageInput.files[0];
+                if (!file) return true; // Don't validate if no file selected
+
+                if (!ALLOWED_TYPES.includes(file.type)) {
+                    mainImageInput.setCustomValidity("Định dạng file không hợp lệ. Chỉ chấp nhận: jpg, jpeg, png, gif, webp");
+                    return false;
+                }
+
+                if (file.size > MAX_FILE_SIZE) {
+                    mainImageInput.setCustomValidity("Kích thước file quá lớn. Tối đa 10MB");
+                    return false;
+                }
+
+                mainImageInput.setCustomValidity("");
+                return true;
+            }
+
+            function validateAdditionalImages() {
+                const files = additionalImagesInput.files;
+                additionalImagesError.textContent = "";
+
+                if (!files || files.length === 0) return true; // Don't validate if no files selected
+
+                // Check number of files
+                if (files.length > MAX_ADDITIONAL_IMAGES) {
+                    additionalImagesError.textContent = `Chỉ được chọn tối đa ${MAX_ADDITIONAL_IMAGES} hình ảnh bổ sung`;
+                    return false;
+                }
+
+                // Check each file
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+
+                    if (!ALLOWED_TYPES.includes(file.type)) {
+                        additionalImagesError.textContent = `Hình ảnh "${file.name}" có định dạng không hợp lệ`;
+                        return false;
+                    }
+
+                    if (file.size > MAX_FILE_SIZE) {
+                        additionalImagesError.textContent = `Hình ảnh "${file.name}" có kích thước quá lớn (tối đa 10MB)`;
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            function updateMainImagePreview() {
+                mainImagePreview.innerHTML = '';
+                const file = mainImageInput.files[0];
+
+                if (file) {
+                    const previewCard = document.createElement('div');
+                    previewCard.className = 'card mt-2 border-0 shadow-sm';
+                    previewCard.style.maxWidth = '300px';
+
+                    const previewCardBody = document.createElement('div');
+                    previewCardBody.className = 'card-body p-2 text-center';
+
+                    const img = document.createElement('img');
+                    img.className = 'img-fluid rounded';
+                    img.style.maxHeight = '200px';
+                    img.src = URL.createObjectURL(file);
+                    img.alt = file.name;
+
+                    const caption = document.createElement('div');
+                    caption.className = 'small text-muted mt-2';
+                    caption.textContent = `${file.name} (${formatFileSize(file.size)})`;
+
+                    previewCardBody.appendChild(img);
+                    previewCardBody.appendChild(caption);
+                    previewCard.appendChild(previewCardBody);
+                    mainImagePreview.appendChild(previewCard);
+                }
+            }
+
+            function updateAdditionalImagesPreview() {
+                additionalImagesPreview.innerHTML = '';
+                const files = additionalImagesInput.files;
+
+                if (files && files.length > 0) {
+                    const previewRow = document.createElement('div');
+                    previewRow.className = 'row g-2 mt-2';
+
+                    Array.from(files).forEach(file => {
+                        const previewCol = document.createElement('div');
+                        previewCol.className = 'col-md-4 col-sm-6 col-6';
+
+                        const previewCard = document.createElement('div');
+                        previewCard.className = 'card h-100 border-0 shadow-sm';
+
+                        const previewCardBody = document.createElement('div');
+                        previewCardBody.className = 'card-body p-2 text-center';
+
+                        const img = document.createElement('img');
+                        img.className = 'img-fluid rounded';
+                        img.style.maxHeight = '150px';
+                        img.src = URL.createObjectURL(file);
+                        img.alt = file.name;
+
+                        const caption = document.createElement('div');
+                        caption.className = 'small text-muted mt-2';
+                        caption.textContent = `${file.name} (${formatFileSize(file.size)})`;
+
+                        previewCardBody.appendChild(img);
+                        previewCardBody.appendChild(caption);
+                        previewCard.appendChild(previewCardBody);
+                        previewCol.appendChild(previewCard);
+                        previewRow.appendChild(previewCol);
+                    });
+
+                    additionalImagesPreview.appendChild(previewRow);
+                }
+            }
+
+            function formatFileSize(bytes) {
+                if (bytes < 1024) return bytes + ' B';
+                else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+                else return (bytes / 1048576).toFixed(1) + ' MB';
             }
         });
     </script>

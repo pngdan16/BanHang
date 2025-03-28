@@ -15,5 +15,7 @@ namespace BanHang.Reposirories.Interfaces
         Task UpdateAsync(Product product);
         //Xóa sản phẩm
         Task DeleteAsync(int id);
+        //Xóa một hình ảnh bổ sung của sản phẩm
+        Task<bool> DeleteProductImageAsync(int productId, int imageId);
     }
 }

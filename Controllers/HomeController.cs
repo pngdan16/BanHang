@@ -17,7 +17,11 @@ public class HomeController : Controller
         _productRepository = productRepository;
         _categoryRepository = categoryRepository;
     }
-    //Hiển thị chi tiết sản phẩm
+    /// <summary>
+    /// Hiển thị chi tiết sản phẩm
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public async Task<IActionResult> ProductDetail(int id)
     {
         var product = await _productRepository.GetByIdAsync(id);
@@ -27,6 +31,10 @@ public class HomeController : Controller
         }
         return View(product);
     }
+    /// <summary>
+    /// Hiển thị trang chủ
+    /// </summary>
+    /// <returns></returns>
     public async Task<IActionResult> Index()
     {
         var products = await _productRepository.GetAllAsync();
