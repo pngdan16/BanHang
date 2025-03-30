@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "eXcjtrzg0kxSQyNqAfMx6kWp8rcT9G2WNDOmxmGSaBc=",
+  "Hash": "Ew3jz/VwHEMFpCKDoY6oJnKZCDxKBzM6MnB5TU0+DX8=",
   "Source": "BanHang",
   "BasePath": "_content/BanHang",
   "Mode": "Default",
@@ -3482,6 +3482,27 @@
       "OriginalItemSpec": "C:\\Users\\HieuNghia\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\9.0.3\\staticwebassets\\V5\\lib\\jquery\\dist\\jquery.js"
     },
     {
+      "Identity": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\obj\\Release\\net9.0\\compressed\\tqhnkdviix-ugr3ga99a3.gz",
+      "SourceId": "BanHang",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\obj\\Release\\net9.0\\compressed\\",
+      "BasePath": "_content/BanHang",
+      "RelativePath": "js/cart#[.{fingerprint=ugr3ga99a3}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\wwwroot\\js\\cart.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "bts6ncekfk",
+      "Integrity": "X95gIn4U9HsRdkb4ikSMLKKGjzInuglQS360sgof8j4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\wwwroot\\js\\cart.js"
+    },
+    {
       "Identity": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\obj\\Release\\net9.0\\compressed\\tysel0n4te-jeal3x0ldm.gz",
       "SourceId": "BanHang",
       "SourceType": "Discovered",
@@ -4026,6 +4047,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\banner1.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\wwwroot\\js\\cart.js",
+      "SourceId": "BanHang",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\wwwroot\\",
+      "BasePath": "_content/BanHang",
+      "RelativePath": "js/cart#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ugr3ga99a3",
+      "Integrity": "Mgpr1wyQRFS7OwJlJ70nGjNztiM5NhaM0bFMk0uMfjM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\cart.js"
     },
     {
       "Identity": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\wwwroot\\js\\site.js",
@@ -15123,6 +15165,304 @@
         {
           "Name": "integrity",
           "Value": "sha256-PhBvb89jENO+tqcnEl9U7go2tq9zgF/AjnP3rqBxsEM="
+        }
+      ]
+    },
+    {
+      "Route": "js/cart.js",
+      "AssetFile": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\obj\\Release\\net9.0\\compressed\\tqhnkdviix-ugr3ga99a3.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.002463054187"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "405"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"X95gIn4U9HsRdkb4ikSMLKKGjzInuglQS360sgof8j4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 29 Mar 2025 14:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"Mgpr1wyQRFS7OwJlJ70nGjNztiM5NhaM0bFMk0uMfjM=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Mgpr1wyQRFS7OwJlJ70nGjNztiM5NhaM0bFMk0uMfjM="
+        }
+      ]
+    },
+    {
+      "Route": "js/cart.js",
+      "AssetFile": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\wwwroot\\js\\cart.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "803"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Mgpr1wyQRFS7OwJlJ70nGjNztiM5NhaM0bFMk0uMfjM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 29 Mar 2025 14:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Mgpr1wyQRFS7OwJlJ70nGjNztiM5NhaM0bFMk0uMfjM="
+        }
+      ]
+    },
+    {
+      "Route": "js/cart.js.gz",
+      "AssetFile": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\obj\\Release\\net9.0\\compressed\\tqhnkdviix-ugr3ga99a3.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "405"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"X95gIn4U9HsRdkb4ikSMLKKGjzInuglQS360sgof8j4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 29 Mar 2025 14:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-X95gIn4U9HsRdkb4ikSMLKKGjzInuglQS360sgof8j4="
+        }
+      ]
+    },
+    {
+      "Route": "js/cart.ugr3ga99a3.js",
+      "AssetFile": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\obj\\Release\\net9.0\\compressed\\tqhnkdviix-ugr3ga99a3.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.002463054187"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "405"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"X95gIn4U9HsRdkb4ikSMLKKGjzInuglQS360sgof8j4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 29 Mar 2025 14:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"Mgpr1wyQRFS7OwJlJ70nGjNztiM5NhaM0bFMk0uMfjM=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ugr3ga99a3"
+        },
+        {
+          "Name": "label",
+          "Value": "js/cart.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Mgpr1wyQRFS7OwJlJ70nGjNztiM5NhaM0bFMk0uMfjM="
+        }
+      ]
+    },
+    {
+      "Route": "js/cart.ugr3ga99a3.js",
+      "AssetFile": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\wwwroot\\js\\cart.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "803"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Mgpr1wyQRFS7OwJlJ70nGjNztiM5NhaM0bFMk0uMfjM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 29 Mar 2025 14:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ugr3ga99a3"
+        },
+        {
+          "Name": "label",
+          "Value": "js/cart.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Mgpr1wyQRFS7OwJlJ70nGjNztiM5NhaM0bFMk0uMfjM="
+        }
+      ]
+    },
+    {
+      "Route": "js/cart.ugr3ga99a3.js.gz",
+      "AssetFile": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\obj\\Release\\net9.0\\compressed\\tqhnkdviix-ugr3ga99a3.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "405"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"X95gIn4U9HsRdkb4ikSMLKKGjzInuglQS360sgof8j4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 29 Mar 2025 14:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ugr3ga99a3"
+        },
+        {
+          "Name": "label",
+          "Value": "js/cart.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-X95gIn4U9HsRdkb4ikSMLKKGjzInuglQS360sgof8j4="
         }
       ]
     },

@@ -1,0 +1,74 @@
+@{
+  ViewData["Title"] = "Bảng điều khiển Admin";
+  Layout = "_AdminLayout"; // Bạn có thể dùng layout riêng cho admin hoặc dùng layout chung
+}
+
+<div class="container-fluid py-4">
+  <!-- Thông báo lỗi nếu có -->
+  @if (TempData["ErrorMessage"] != null)
+  {
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      @TempData["ErrorMessage"]
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  }
+
+  <h1 class="text-center mb-4">Bảng Điều Khiển Admin</h1>
+
+  <div class="row">
+    <!-- Thống kê sản phẩm -->
+    <div class="col-lg-6 mb-4">
+      <div class="card border-primary">
+        <div class="card-body text-center">
+          <h5 class="card-title">Tổng số sản phẩm</h5>
+          <p class="card-text display-4">@ViewBag.ProductCount</p>
+          <a asp-area="Admin" asp-controller="Dashboard" asp-action="Products" class="btn btn-primary">Quản lý sản
+            phẩm</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thống kê danh mục -->
+    <div class="col-lg-6 mb-4">
+      <div class="card border-success">
+        <div class="card-body text-center">
+          <h5 class="card-title">Tổng số danh mục</h5>
+          <p class="card-text display-4">@ViewBag.CategoryCount</p>
+          <a asp-area="Admin" asp-controller="Dashboard" asp-action="Categories" class="btn btn-success">Quản lý danh
+            mục</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Các chức năng quản lý khác -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Chức năng quản lý</h4>
+        </div>
+        <div class="card-body">
+          <div class="row text-center">
+            <div class="col-md-4 mb-3">
+              <a asp-area="Admin" asp-controller="User" asp-action="Index" class="btn btn-outline-primary btn-lg w-100">
+                <i class="bi bi-people-fill me-2"></i>Quản lý người dùng
+              </a>
+            </div>
+            <div class="col-md-4 mb-3">
+              <a asp-area="Admin" asp-controller="Role" asp-action="Index"
+                class="btn btn-outline-secondary btn-lg w-100">
+                <i class="bi bi-shield-lock me-2"></i>Quản lý vai trò
+              </a>
+            </div>
+            <div class="col-md-4 mb-3">
+              <a asp-controller="Home" asp-action="Index" asp-area="" class="btn btn-outline-info btn-lg w-100">
+                <i class="bi bi-house-door me-2"></i>Về trang chủ
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

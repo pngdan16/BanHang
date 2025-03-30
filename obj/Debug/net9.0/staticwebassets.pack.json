@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\images\\banner1.jpg"
     },
     {
+      "Id": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\wwwroot\\js\\cart.js",
+      "PackagePath": "staticwebassets\\js\\cart.js"
+    },
+    {
       "Id": "C:\\Users\\HieuNghia\\Downloads\\BanHang\\BanHang\\BanHang\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

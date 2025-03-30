@@ -434,3 +434,4 @@ C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Release\net9.0\refint\B
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Release\net9.0\BanHang.pdb
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Release\net9.0\BanHang.genruntimeconfig.cache
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Release\net9.0\ref\BanHang.dll
+C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Release\net9.0\compressed\tqhnkdviix-ugr3ga99a3.gz

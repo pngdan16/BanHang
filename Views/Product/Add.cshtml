@@ -5,160 +5,162 @@
     ViewData["Title"] = "Thêm sản phẩm";
 }
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><i class="bi bi-plus-circle me-2"></i>Thêm sản phẩm mới</h3>
-                </div>
-                <div class="card-body">
-                    @if (!ViewData.ModelState.IsValid)
-                    {
-                        <div class="alert alert-danger mb-4">
-                            <h5 class="alert-heading"><i class="bi bi-exclamation-triangle me-2"></i>Có lỗi xảy ra:</h5>
-                            <div asp-validation-summary="All" class="text-danger"></div>
-                        </div>
-                    }
+<div class="container-fluid">
+    <div class="admin-content-header d-flex justify-content-between align-items-center">
+        <h1 class="admin-content-title">
+            <i class="bi bi-plus-circle me-2"></i>Thêm sản phẩm mới
+        </h1>
+        <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách
+        </a>
+    </div>
 
-                    <form asp-action="Add" enctype="multipart/form-data" class="needs-validation" id="productForm"
-                        novalidate>
-                        <div class="row mb-4">
-                            <div class="col-md-12">
-                                <div class="card border-0 shadow-sm h-100">
-                                    <div class="card-header bg-light">
-                                        <h5 class="mb-0"><i class="bi bi-info-circle me-2"></i>Thông tin cơ bản</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3">
-                                                    <input asp-for="Name" class="form-control"
-                                                        placeholder="Tên sản phẩm" required minlength="3"
-                                                        maxlength="100" />
-                                                    <label asp-for="Name">Tên sản phẩm <span
-                                                            class="text-danger">*</span></label>
-                                                    <span asp-validation-for="Name" class="text-danger"></span>
-                                                    <div class="form-text">Nhập tên sản phẩm từ 3-100 ký tự</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3">
-                                                    <input asp-for="Price" class="form-control" type="number"
-                                                        step="1000" min="0" placeholder="Giá" required id="priceInput"
-                                                        onkeydown="return event.keyCode !== 189" />
-                                                    <label asp-for="Price">Giá <span
-                                                            class="text-danger">*</span></label>
-                                                    <span asp-validation-for="Price" class="text-danger"></span>
-                                                    <div id="priceError" class="invalid-feedback">Giá sản phẩm không
-                                                        được âm</div>
-                                                    <div class="form-text mt-1" id="formattedPrice">Giá: 0 VNĐ</div>
-                                                </div>
-                                            </div>
+    <div class="admin-card">
+        <div class="admin-card-body">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger mb-4">
+                    <h5 class="alert-heading d-flex align-items-center">
+                        <i class="bi bi-exclamation-triangle me-2"></i>Có lỗi xảy ra:
+                    </h5>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                </div>
+            }
+
+            <form asp-action="Add" enctype="multipart/form-data" class="needs-validation" id="productForm" novalidate>
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="admin-card h-100 border">
+                            <div class="admin-card-header">
+                                <h5 class="mb-0"><i class="bi bi-info-circle me-2"></i>Thông tin cơ bản</h5>
+                            </div>
+                            <div class="admin-card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input asp-for="Name" class="form-control" placeholder="Tên sản phẩm"
+                                                required minlength="3" maxlength="100" />
+                                            <label asp-for="Name">Tên sản phẩm <span
+                                                    class="text-danger">*</span></label>
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                            <div class="form-text">Nhập tên sản phẩm từ 3-100 ký tự</div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3">
-                                                    <select asp-for="CategoryId" asp-items="ViewBag.Categories"
-                                                        class="form-select" required>
-                                                        <option value="">-- Chọn danh mục --</option>
-                                                    </select>
-                                                    <label asp-for="CategoryId">Danh mục <span
-                                                            class="text-danger">*</span></label>
-                                                    <span asp-validation-for="CategoryId" class="text-danger"></span>
-                                                </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input asp-for="Price" class="form-control" type="number" step="1000"
+                                                min="0" placeholder="Giá" required id="priceInput"
+                                                onkeydown="return event.keyCode !== 189" />
+                                            <label asp-for="Price">Giá <span class="text-danger">*</span></label>
+                                            <span asp-validation-for="Price" class="text-danger"></span>
+                                            <div id="priceError" class="invalid-feedback">Giá sản phẩm không được âm
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3">
-                                                    <textarea asp-for="Description" class="form-control"
-                                                        style="height: 100px" placeholder="Mô tả sản phẩm" required
-                                                        minlength="10" maxlength="500"></textarea>
-                                                    <label asp-for="Description">Mô tả <span
-                                                            class="text-danger">*</span></label>
-                                                    <span asp-validation-for="Description" class="text-danger"></span>
-                                                    <div class="form-text">
-                                                        <span id="descriptionCount">0</span>/500 ký tự
-                                                    </div>
-                                                </div>
+                                            <div class="form-text mt-1" id="formattedPrice">Giá: 0 VNĐ</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <select asp-for="CategoryId" asp-items="ViewBag.Categories"
+                                                class="form-select" required>
+                                                <option value="">-- Chọn danh mục --</option>
+                                            </select>
+                                            <label asp-for="CategoryId">Danh mục <span
+                                                    class="text-danger">*</span></label>
+                                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <textarea asp-for="Description" class="form-control" style="height: 100px"
+                                                placeholder="Mô tả sản phẩm" required minlength="10"
+                                                maxlength="500"></textarea>
+                                            <label asp-for="Description">Mô tả <span
+                                                    class="text-danger">*</span></label>
+                                            <span asp-validation-for="Description" class="text-danger"></span>
+                                            <div class="form-text">
+                                                <span id="descriptionCount">0</span>/500 ký tự
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="row mb-4">
-                            <div class="col-md-12">
-                                <div class="card border-0 shadow-sm">
-                                    <div class="card-header bg-light">
-                                        <h5 class="mb-0"><i class="bi bi-images me-2"></i>Hình ảnh sản phẩm</h5>
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="admin-card border">
+                            <div class="admin-card-header">
+                                <h5 class="mb-0"><i class="bi bi-images me-2"></i>Hình ảnh sản phẩm</h5>
+                            </div>
+                            <div class="admin-card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label asp-for="ImageFile" class="form-label fw-bold">
+                                                Hình ảnh chính <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-primary text-white">
+                                                    <i class="bi bi-image"></i>
+                                                </span>
+                                                <input type="file" asp-for="ImageFile" class="form-control"
+                                                    accept="image/jpeg,image/png,image/gif,image/webp"
+                                                    id="mainImageInput" required />
+                                            </div>
+                                            <div class="mt-2">
+                                                <span asp-validation-for="ImageFile" class="text-danger d-block"></span>
+                                                <small class="text-muted">
+                                                    <i class="bi bi-info-circle"></i> Định dạng hỗ trợ: jpg, jpeg, png,
+                                                    gif, webp (tối đa 10MB)
+                                                </small>
+                                            </div>
+                                            <div class="mt-3" id="mainImagePreview"></div>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label asp-for="ImageFile" class="form-label fw-bold">Hình ảnh chính
-                                                        <span class="text-danger">*</span></label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-text"><i
-                                                                class="bi bi-image"></i></span>
-                                                        <input type="file" asp-for="ImageFile" class="form-control"
-                                                            accept="image/jpeg,image/png,image/gif,image/webp"
-                                                            id="mainImageInput" required />
-                                                    </div>
-                                                    <div class="mt-2">
-                                                        <span asp-validation-for="ImageFile"
-                                                            class="text-danger d-block"></span>
-                                                        <small class="text-muted">
-                                                            <i class="bi bi-info-circle"></i> Định dạng hỗ trợ: jpg,
-                                                            jpeg, png, gif, webp (tối đa 10MB)
-                                                        </small>
-                                                    </div>
-                                                    <div class="mt-3" id="mainImagePreview"></div>
-                                                </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label asp-for="AdditionalImages" class="form-label fw-bold">Hình ảnh bổ
+                                                sung</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-info text-white">
+                                                    <i class="bi bi-images"></i>
+                                                </span>
+                                                <input type="file" asp-for="AdditionalImages" multiple
+                                                    class="form-control"
+                                                    accept="image/jpeg,image/png,image/gif,image/webp"
+                                                    id="additionalImagesInput" />
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label asp-for="AdditionalImages" class="form-label fw-bold">Hình
-                                                        ảnh bổ sung</label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-text"><i
-                                                                class="bi bi-images"></i></span>
-                                                        <input type="file" asp-for="AdditionalImages" multiple
-                                                            class="form-control"
-                                                            accept="image/jpeg,image/png,image/gif,image/webp"
-                                                            id="additionalImagesInput" />
-                                                    </div>
-                                                    <div class="mt-2">
-                                                        <span id="additionalImagesError"
-                                                            class="text-danger d-block"></span>
-                                                        <span asp-validation-for="AdditionalImages"
-                                                            class="text-danger d-block"></span>
-                                                        <small class="text-muted">
-                                                            <i class="bi bi-info-circle"></i> Chọn nhiều hình ảnh (tối
-                                                            đa 5 hình, mỗi hình tối đa 10MB)
-                                                        </small>
-                                                    </div>
-                                                    <div class="mt-3" id="additionalImagesPreview"></div>
-                                                </div>
+                                            <div class="mt-2">
+                                                <span id="additionalImagesError" class="text-danger d-block"></span>
+                                                <span asp-validation-for="AdditionalImages"
+                                                    class="text-danger d-block"></span>
+                                                <small class="text-muted">
+                                                    <i class="bi bi-info-circle"></i> Chọn nhiều hình ảnh (tối đa 5
+                                                    hình, mỗi hình tối đa 10MB)
+                                                </small>
                                             </div>
+                                            <div class="mt-3" id="additionalImagesPreview"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="d-flex justify-content-center gap-3 mt-4">
-                            <button type="submit" class="btn btn-primary btn-lg px-5" id="submitButton">
-                                <i class="bi bi-save me-2"></i> Thêm sản phẩm
-                            </button>
-                            <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
-                                <i class="bi bi-x-circle me-2"></i> Hủy
-                            </a>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+
+                <div class="d-flex justify-content-center gap-3 mt-4 mb-3">
+                    <button type="submit" class="btn btn-primary btn-lg px-5" id="submitButton">
+                        <i class="bi bi-save me-2"></i> Lưu sản phẩm
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                        <i class="bi bi-x-circle me-2"></i> Hủy
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -336,11 +338,11 @@
 
                 if (file) {
                     const previewCard = document.createElement('div');
-                    previewCard.className = 'card mt-2 border-0 shadow-sm';
+                    previewCard.className = 'admin-card mt-2 border-0 shadow-sm';
                     previewCard.style.maxWidth = '300px';
 
                     const previewCardBody = document.createElement('div');
-                    previewCardBody.className = 'card-body p-2 text-center';
+                    previewCardBody.className = 'admin-card-body p-2 text-center';
 
                     const img = document.createElement('img');
                     img.className = 'img-fluid rounded';
@@ -372,10 +374,10 @@
                         previewCol.className = 'col-md-4 col-sm-6 col-6';
 
                         const previewCard = document.createElement('div');
-                        previewCard.className = 'card h-100 border-0 shadow-sm';
+                        previewCard.className = 'admin-card h-100 border-0 shadow-sm';
 
                         const previewCardBody = document.createElement('div');
-                        previewCardBody.className = 'card-body p-2 text-center';
+                        previewCardBody.className = 'admin-card-body p-2 text-center';
 
                         const img = document.createElement('img');
                         img.className = 'img-fluid rounded';

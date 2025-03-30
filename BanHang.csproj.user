@@ -5,5 +5,8 @@
     <_SelectedScaffolderCategoryPath>root/Identity</_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_ViewDialogWidth>800</WebStackScaffolding_ViewDialogWidth>
     <NameOfLastUsedPublishProfile>C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\Properties\PublishProfiles\shopmacbook.lehieunghia.io.vn - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
+    <Controller_SelectedScaffolderID>MvcControllerWithContextScaffolder</Controller_SelectedScaffolderID>
+    <Controller_SelectedScaffolderCategoryPath>root/Common/MVC/Controller</Controller_SelectedScaffolderCategoryPath>
+    <WebStackScaffolding_ControllerDialogWidth>650</WebStackScaffolding_ControllerDialogWidth>
   </PropertyGroup>
 </Project>

@@ -22,6 +22,7 @@ public class HomeController : Controller
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
+
     public async Task<IActionResult> ProductDetail(int id)
     {
         var product = await _productRepository.GetByIdAsync(id);
@@ -31,6 +32,7 @@ public class HomeController : Controller
         }
         return View(product);
     }
+
     /// <summary>
     /// Hiển thị trang chủ
     /// </summary>

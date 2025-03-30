@@ -1,0 +1,135 @@
+@{
+  ViewData["Title"] = "Bảng điều khiển Admin";
+}
+
+<div class="admin-content-header">
+    <h1 class="admin-content-title">Bảng điều khiển</h1>
+</div>
+
+<div class="row">
+    <!-- Thẻ thống kê sản phẩm -->
+    <div class="col-md-6 col-lg-3">
+        <div class="stat-card product d-flex justify-content-between align-items-center">
+            <div>
+                <p class="stat-card-title">Sản phẩm</p>
+                <h2 class="stat-card-value">@ViewBag.ProductCount</h2>
+            </div>
+            <div class="stat-card-icon">
+                <i class="bi bi-box-seam"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thẻ thống kê danh mục -->
+    <div class="col-md-6 col-lg-3">
+        <div class="stat-card category d-flex justify-content-between align-items-center">
+            <div>
+                <p class="stat-card-title">Danh mục</p>
+                <h2 class="stat-card-value">@ViewBag.CategoryCount</h2>
+            </div>
+            <div class="stat-card-icon">
+                <i class="bi bi-tags"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thẻ thống kê người dùng -->
+    <div class="col-md-6 col-lg-3">
+        <div class="stat-card user d-flex justify-content-between align-items-center">
+            <div>
+                <p class="stat-card-title">Người dùng</p>
+                <h2 class="stat-card-value">0</h2>
+            </div>
+            <div class="stat-card-icon">
+                <i class="bi bi-people"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thẻ thống kê đơn hàng -->
+    <div class="col-md-6 col-lg-3">
+        <div class="stat-card order d-flex justify-content-between align-items-center">
+            <div>
+                <p class="stat-card-title">Đơn hàng</p>
+                <h2 class="stat-card-value">0</h2>
+            </div>
+            <div class="stat-card-icon">
+                <i class="bi bi-cart-check"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Các chức năng quản lý -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <i class="bi bi-box-seam me-2"></i>Quản lý sản phẩm
+            </div>
+            <div class="admin-card-body">
+                <div class="d-grid gap-2">
+                    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Products" class="btn btn-primary">
+                        <i class="bi bi-list me-2"></i>Danh sách sản phẩm
+                    </a>
+                    <a asp-controller="Product" asp-action="Add" asp-area="" class="btn btn-success">
+                        <i class="bi bi-plus-circle me-2"></i>Thêm sản phẩm mới
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <i class="bi bi-tags me-2"></i>Quản lý danh mục
+            </div>
+            <div class="admin-card-body">
+                <div class="d-grid gap-2">
+                    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Categories" class="btn btn-primary">
+                        <i class="bi bi-list me-2"></i>Danh sách danh mục
+                    </a>
+                    <a asp-controller="Category" asp-action="Add" asp-area="" class="btn btn-success">
+                        <i class="bi bi-plus-circle me-2"></i>Thêm danh mục mới
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (User.IsInRole(RoleConstants.ADMIN))
+{
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <i class="bi bi-people me-2"></i>Quản lý người dùng
+                    </div>
+                    <div class="admin-card-body">
+                        <div class="d-grid gap-2">
+                            <a asp-area="Admin" asp-controller="User" asp-action="Index" class="btn btn-primary">
+                                <i class="bi bi-list me-2"></i>Danh sách người dùng
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <i class="bi bi-shield-lock me-2"></i>Quản lý vai trò
+                    </div>
+                    <div class="admin-card-body">
+                        <div class="d-grid gap-2">
+                            <a asp-area="Admin" asp-controller="Role" asp-action="Index" class="btn btn-primary">
+                                <i class="bi bi-list me-2"></i>Danh sách vai trò
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+}

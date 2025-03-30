@@ -13,7 +13,17 @@
       <h3>@Model.Name</h3>
       <p class="text-muted">Giá: @Model.Price</p>
       <p>@Model.Description</p>
-      <a href="#" class="btn btn-primary">Thêm vào giỏ hàng</a>
+      <form asp-controller="ShoppingCart" asp-action="AddToCart" method="post">
+        <input type="hidden" name="productId" value="@Model.Id" />
+        <div class="d-flex align-items-center mb-3">
+          <label for="quantity" class="me-2">Số lượng:</label>
+          <input type="number" id="quantity" name="quantity" value="1" min="1" max="100" class="form-control"
+            style="width: 80px;" />
+        </div>
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-cart-plus"></i> Thêm vào giỏ hàng
+        </button>
+      </form>
     </div>
   </div>
 </div>

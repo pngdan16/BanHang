@@ -51,6 +51,7 @@ C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\wwwroot\lib\bootstrap\dist\
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
+C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\wwwroot\js\cart.js
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\wwwroot\lib\jquery-validation\dist\jquery.validate.js
@@ -60,6 +61,7 @@ C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\wwwroot\lib\bootstrap\dist\
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\images\banner1.jpg
+wwwroot\js\cart.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

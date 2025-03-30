@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BanHang")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c72510a58160f794846d8f4417088be89d684762")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b2ea772ffe4b08903fecaebf7f4a646d09bb07a7")]
 [assembly: System.Reflection.AssemblyProductAttribute("BanHang")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BanHang")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
