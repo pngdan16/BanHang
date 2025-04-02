@@ -28,6 +28,17 @@
                   <p><strong>Mã đơn hàng:</strong> #@Model.Id</p>
                   <p><strong>Ngày đặt hàng:</strong> @Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</p>
                   <p><strong>Tổng tiền:</strong> @Model.TotalAmount.ToString("N0") VNĐ</p>
+                  <p>
+                    <strong>Trạng thái:</strong>
+                    @if (Model.OrderStatus != null)
+                    {
+                      <span class="badge @GetStatusBadgeClass(Model.OrderStatusId)">@Model.OrderStatus.Name</span>
+                    }
+                    else
+                    {
+                      <span class="badge bg-secondary">Chờ xác nhận</span>
+                    }
+                  </p>
                 </div>
               </div>
             </div>
@@ -99,3 +110,18 @@
     </div>
   </div>
 </div>
+
+@functions {
+  string GetStatusBadgeClass(int statusId)
+  {
+    return statusId switch
+    {
+      1 => "bg-secondary", // Chờ xác nhận
+      2 => "bg-primary", // Đã xác nhận
+      3 => "bg-info", // Đang giao hàng
+      4 => "bg-success", // Đã hoàn thành
+      5 => "bg-danger", // Đã hủy
+      _ => "bg-secondary"
+    };
+  }
+}

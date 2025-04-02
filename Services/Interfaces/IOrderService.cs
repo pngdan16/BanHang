@@ -19,6 +19,9 @@ namespace BanHang.Services.Interfaces
     // Cập nhật trạng thái đơn hàng
     Task UpdateOrderStatusAsync(int orderId, string status);
 
+    // Cập nhật trạng thái đơn hàng theo statusId
+    Task UpdateOrderStatusAsync(int orderId, int statusId);
+
     // Hủy đơn hàng
     Task CancelOrderAsync(int orderId);
   }

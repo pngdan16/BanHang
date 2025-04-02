@@ -1,47 +1,82 @@
 using BanHang.Models;
 using BanHang.Models.Identity;
+using BanHang.Models.ViewModels;
 using BanHang.Reposirories.Interfaces;
+using BanHang.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.CodeAnalysis;
 
 namespace BanHang.Areas.Admin.Controllers
 {
   [Area("Admin")]
-  [Authorize(Roles = $"{RoleConstants.ADMIN},{RoleConstants.EMPLOYEE}")]
+  [Authorize(Roles = RoleConstants.ADMIN + "," + RoleConstants.EMPLOYEE)]
   public class DashboardController : Controller
   {
     private readonly IProductRepository _productRepository;
     private readonly ICategoryRepository _categoryRepository;
-    public DashboardController(IProductRepository productRepository, ICategoryRepository categoryRepository)
+    private readonly IOrderService _orderService;
+    private readonly IOrderStatusRepository _orderStatusRepository;
+    private readonly ILogger<DashboardController> _logger;
+    private readonly IUserRepository _userRepository;
+
+    public DashboardController(
+    IProductRepository productRepository,
+    ICategoryRepository categoryRepository,
+    IOrderService orderService,
+    IOrderStatusRepository orderStatusRepository,
+    IUserRepository userRepository,
+    ILogger<DashboardController> logger)
     {
       _productRepository = productRepository;
       _categoryRepository = categoryRepository;
+      _orderService = orderService;
+      _orderStatusRepository = orderStatusRepository;
+      _userRepository = userRepository;
+      _logger = logger;
     }
 
-    // Trang Dashboard chính
+    // Giao diện trang Dashboard chính của Admin
     public async Task<IActionResult> Index()
     {
       try
       {
-        // Lấy thông tin tổng quan
-        var productCount = await _productRepository.GetAllAsync();
-        var categories = await _categoryRepository.GetAllAsync();
+        // Lấy số liệu tổng quan về đơn hàng
+        var allOrders = await _orderService.GetAllOrdersAsync();
+        // Tính tổng số đơn hàng  
+        var totalOrders = allOrders.Count();
+        // Tính tổng doanh số 
+        var totalSales = allOrders.Sum(o => o.TotalAmount);
 
-        // Truyền dữ liệu tổng quan vào ViewBag
-        ViewBag.ProductCount = productCount.Count();
-        ViewBag.CategoryCount = categories.Count();
+        // Lấy danh sách đơn hàng mới nhất (5 đơn)
+        var recentOrders = allOrders.OrderByDescending(o => o.OrderDate).Take(5).ToList();
 
-        return View();
+        // Lấy số liệu theo trạng thái đơn hàng
+        var statuses = await _orderStatusRepository.GetAllAsync();
+        var ordersByStatus = new Dictionary<string, int>();
+
+        foreach (var status in statuses)
+        {
+          var count = allOrders.Count(o => o.OrderStatusId == status.Id);
+          ordersByStatus.Add(status.Name, count);
+        }
+
+        // Tạo view model cho dashboard
+        var viewModel = new DashboardViewModel
+        {
+          TotalOrders = totalOrders,
+          TotalSales = totalSales,
+          RecentOrders = recentOrders,
+          OrdersByStatus = ordersByStatus
+        };
+
+        return View(viewModel);
       }
       catch (Exception ex)
       {
-        // Xử lý lỗi và hiển thị thông báo
-        TempData["ErrorMessage"] = $"Đã xảy ra lỗi: {ex.Message}";
-        return View();
+        _logger.LogError(ex, "Lỗi khi tải trang Dashboard: {Message}", ex.Message);
+        TempData["Error"] = "Có lỗi xảy ra khi tải dữ liệu tổng quan";
+        return View(new DashboardViewModel());
       }
     }
 
@@ -87,6 +122,20 @@ namespace BanHang.Areas.Admin.Controllers
       {
         TempData["ErrorMessage"] = $"Không thể tải danh sách danh mục: {ex.Message}";
         return View(new List<Category>());
+      }
+    }
+    //Quản lý người dùng 
+    public async Task<IActionResult> Users()
+    {
+      try
+      {
+        var users = await _userRepository.GetAllUsersAsync();
+        return View(users);
+      }
+      catch (Exception ex)
+      {
+        TempData["ErrorMessage"] = $"Không thể tải danh sách người dùng: {ex.Message}";
+        return View(new List<ApplicationUser>());
       }
     }
   }

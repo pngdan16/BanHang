@@ -8,11 +8,13 @@ namespace BanHang.Services.Implementations
   {
     private readonly IOrderRepository _orderRepository;
     private readonly ILogger<OrderService> _logger;
+    private readonly IOrderStatusRepository _orderStatusRepository;
 
-    public OrderService(IOrderRepository orderRepository, ILogger<OrderService> logger)
+    public OrderService(IOrderRepository orderRepository, ILogger<OrderService> logger, IOrderStatusRepository orderStatusRepository)
     {
       _orderRepository = orderRepository;
       _logger = logger;
+      _orderStatusRepository = orderStatusRepository;
     }
 
     public async Task<IEnumerable<Order>> GetAllOrdersAsync()
@@ -55,7 +57,7 @@ namespace BanHang.Services.Implementations
       try
       {
         _logger.LogInformation("Bắt đầu tạo đơn hàng từ giỏ hàng cho người dùng: {UserId}", userId);
-
+        var defaultStatus = await _orderStatusRepository.GetDefaultStatusAsync();
         // Tạo đơn hàng mới
         var order = new Order
         {
@@ -63,7 +65,9 @@ namespace BanHang.Services.Implementations
           OrderDate = DateTime.Now,
           TotalAmount = cart.GetTotalAmount(),
           ShippingAddress = shippingAddress,
-          Notes = notes ?? string.Empty
+          Notes = notes ?? string.Empty,
+          OrderStatusId = defaultStatus.Id,
+          StatusUpdatedDate = DateTime.Now
         };
 
         _logger.LogInformation("Tổng giá trị đơn hàng: {TotalAmount}", order.TotalAmount);
@@ -96,36 +100,117 @@ namespace BanHang.Services.Implementations
       }
     }
 
-    public async Task UpdateOrderStatusAsync(int orderId, string status)
+    public async Task UpdateOrderStatusAsync(int orderId, string statusName)
     {
-      var order = await _orderRepository.GetOrderByIdAsync(orderId);
-      if (order == null)
+      try
       {
-        throw new KeyNotFoundException($"Không tìm thấy đơn hàng với ID: {orderId}");
+        var order = await _orderRepository.GetOrderByIdAsync(orderId);
+        if (order == null)
+        {
+          throw new KeyNotFoundException($"Không tìm thấy đơn hàng với ID: {orderId}");
+        }
+
+        // Tìm trạng thái theo tên
+        var allStatuses = await _orderStatusRepository.GetAllAsync();
+        var status = allStatuses.FirstOrDefault(s => s.Name.Equals(statusName, StringComparison.OrdinalIgnoreCase));
+
+        if (status == null)
+        {
+          throw new KeyNotFoundException($"Không tìm thấy trạng thái đơn hàng: {statusName}");
+        }
+
+        // Kiểm tra tính hợp lệ của việc chuyển trạng thái
+        if (!await _orderStatusRepository.IsValidTransitionAsync(order.OrderStatusId, status.Id))
+        {
+          throw new InvalidOperationException($"Không thể chuyển từ trạng thái ID {order.OrderStatusId} sang trạng thái: {status.Name}");
+        }
+
+        // Cập nhật trạng thái
+        order.OrderStatusId = status.Id;
+        order.StatusUpdatedDate = DateTime.Now;
+
+        await _orderRepository.UpdateOrderAsync(order);
+
+        _logger.LogInformation("Đã cập nhật trạng thái đơn hàng ID: {OrderId} thành: {Status}", orderId, statusName);
       }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, "Lỗi khi cập nhật trạng thái đơn hàng: {Message}", ex.Message);
+        throw;
+      }
+    }
 
-      // Cập nhật thêm trường Status vào bảng Order nếu cần
-      // order.Status = status;
+    public async Task UpdateOrderStatusAsync(int orderId, int statusId)
+    {
+      try
+      {
+        var order = await _orderRepository.GetOrderByIdAsync(orderId);
+        if (order == null)
+        {
+          throw new KeyNotFoundException($"Không tìm thấy đơn hàng với ID: {orderId}");
+        }
 
-      await _orderRepository.UpdateOrderAsync(order);
+        // Lấy thông tin trạng thái
+        var status = await _orderStatusRepository.GetByIdAsync(statusId);
 
-      _logger.LogInformation("Đã cập nhật trạng thái đơn hàng ID: {OrderId} thành: {Status}", orderId, status);
+        // Kiểm tra tính hợp lệ của việc chuyển trạng thái
+        if (!await _orderStatusRepository.IsValidTransitionAsync(order.OrderStatusId, statusId))
+        {
+          throw new InvalidOperationException($"Không thể chuyển từ trạng thái ID {order.OrderStatusId} sang trạng thái: {status.Name}");
+        }
+
+        // Cập nhật trạng thái
+        order.OrderStatusId = statusId;
+        order.StatusUpdatedDate = DateTime.Now;
+
+        await _orderRepository.UpdateOrderAsync(order);
+
+        _logger.LogInformation("Đã cập nhật trạng thái đơn hàng ID: {OrderId} thành: {Status}", orderId, status.Name);
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, "Lỗi khi cập nhật trạng thái đơn hàng: {Message}", ex.Message);
+        throw;
+      }
     }
 
     public async Task CancelOrderAsync(int orderId)
     {
-      var order = await _orderRepository.GetOrderByIdAsync(orderId);
-      if (order == null)
+      try
       {
-        throw new KeyNotFoundException($"Không tìm thấy đơn hàng với ID: {orderId}");
+        var order = await _orderRepository.GetOrderByIdAsync(orderId);
+        if (order == null)
+        {
+          throw new KeyNotFoundException($"Không tìm thấy đơn hàng với ID: {orderId}");
+        }
+
+        // Lấy trạng thái "Đã hủy"
+        var cancelledStatus = await _orderStatusRepository.GetCancelledStatusAsync();
+        if (cancelledStatus == null)
+        {
+          throw new Exception("Không tìm thấy trạng thái 'Đã hủy' trong hệ thống");
+        }
+
+        // Cập nhật trạng thái đơn hàng thành "Đã hủy"
+        order.OrderStatusId = cancelledStatus.Id;
+        order.StatusUpdatedDate = DateTime.Now;
+
+        await _orderRepository.UpdateOrderAsync(order);
+
+        _logger.LogInformation("Đã hủy đơn hàng ID: {OrderId}", orderId);
       }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, "Lỗi khi hủy đơn hàng: {Message}", ex.Message);
+        throw;
+      }
+    }
 
-      // Cập nhật trạng thái đơn hàng thành "Đã hủy"
-      // order.Status = "Cancelled";
-
-      await _orderRepository.UpdateOrderAsync(order);
-
-      _logger.LogInformation("Đã hủy đơn hàng ID: {OrderId}", orderId);
+    // Thêm phương thức để lấy đơn hàng theo trạng thái
+    public async Task<IEnumerable<Order>> GetOrdersByStatusIdAsync(int statusId)
+    {
+      var allOrders = await _orderRepository.GetAllOrdersAsync();
+      return allOrders.Where(o => o.OrderStatusId == statusId);
     }
   }
 }

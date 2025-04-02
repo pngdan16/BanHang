@@ -132,9 +132,15 @@ namespace BanHang.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("OrderStatusId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ShippingAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("StatusUpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
@@ -144,6 +150,8 @@ namespace BanHang.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderStatusId");
 
                     b.HasIndex("UserId");
 
@@ -177,6 +185,61 @@ namespace BanHang.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderDetails");
+                });
+
+            modelBuilder.Entity("BanHang.Models.OrderStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderStatuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Đơn hàng đang chờ xác nhận",
+                            Name = "Chờ xác nhận"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Đơn hàng đã được xác nhận",
+                            Name = "Đã xác nhận"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Đơn hàng đang được giao",
+                            Name = "Đang giao hàng"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Đơn hàng đã được giao và hoàn thành",
+                            Name = "Đã hoàn thành"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Đơn hàng đã bị hủy",
+                            Name = "Đã hủy"
+                        });
                 });
 
             modelBuilder.Entity("BanHang.Models.Product", b =>
@@ -369,11 +432,19 @@ namespace BanHang.Migrations
 
             modelBuilder.Entity("BanHang.Models.Order", b =>
                 {
+                    b.HasOne("BanHang.Models.OrderStatus", "OrderStatus")
+                        .WithMany("Orders")
+                        .HasForeignKey("OrderStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BanHang.Models.Identity.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("OrderStatus");
 
                     b.Navigation("User");
                 });
@@ -381,7 +452,7 @@ namespace BanHang.Migrations
             modelBuilder.Entity("BanHang.Models.OrderDetail", b =>
                 {
                     b.HasOne("BanHang.Models.Order", "Order")
-                        .WithMany()
+                        .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -473,6 +544,16 @@ namespace BanHang.Migrations
             modelBuilder.Entity("BanHang.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("BanHang.Models.Order", b =>
+                {
+                    b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("BanHang.Models.OrderStatus", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("BanHang.Models.Product", b =>

@@ -1,135 +1,176 @@
+@model BanHang.Models.ViewModels.DashboardViewModel
+
 @{
-  ViewData["Title"] = "Bảng điều khiển Admin";
+    ViewData["Title"] = "Dashboard";
+    Layout = "_AdminLayout";
 }
 
-<div class="admin-content-header">
-    <h1 class="admin-content-title">Bảng điều khiển</h1>
-</div>
-
-<div class="row">
-    <!-- Thẻ thống kê sản phẩm -->
-    <div class="col-md-6 col-lg-3">
-        <div class="stat-card product d-flex justify-content-between align-items-center">
-            <div>
-                <p class="stat-card-title">Sản phẩm</p>
-                <h2 class="stat-card-value">@ViewBag.ProductCount</h2>
-            </div>
-            <div class="stat-card-icon">
-                <i class="bi bi-box-seam"></i>
-            </div>
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Dashboard</h2>
+        <div>   
+            <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="btn btn-primary">
+                <i class="bi bi-box"></i> Quản lý đơn hàng
+            </a>
         </div>
     </div>
 
-    <!-- Thẻ thống kê danh mục -->
-    <div class="col-md-6 col-lg-3">
-        <div class="stat-card category d-flex justify-content-between align-items-center">
-            <div>
-                <p class="stat-card-title">Danh mục</p>
-                <h2 class="stat-card-value">@ViewBag.CategoryCount</h2>
-            </div>
-            <div class="stat-card-icon">
-                <i class="bi bi-tags"></i>
-            </div>
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
-    </div>
+    }
 
-    <!-- Thẻ thống kê người dùng -->
-    <div class="col-md-6 col-lg-3">
-        <div class="stat-card user d-flex justify-content-between align-items-center">
-            <div>
-                <p class="stat-card-title">Người dùng</p>
-                <h2 class="stat-card-value">0</h2>
-            </div>
-            <div class="stat-card-icon">
-                <i class="bi bi-people"></i>
-            </div>
-        </div>
-    </div>
-
-    <!-- Thẻ thống kê đơn hàng -->
-    <div class="col-md-6 col-lg-3">
-        <div class="stat-card order d-flex justify-content-between align-items-center">
-            <div>
-                <p class="stat-card-title">Đơn hàng</p>
-                <h2 class="stat-card-value">0</h2>
-            </div>
-            <div class="stat-card-icon">
-                <i class="bi bi-cart-check"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Các chức năng quản lý -->
-<div class="row mt-4">
-    <div class="col-md-6">
-        <div class="admin-card">
-            <div class="admin-card-header">
-                <i class="bi bi-box-seam me-2"></i>Quản lý sản phẩm
-            </div>
-            <div class="admin-card-body">
-                <div class="d-grid gap-2">
-                    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Products" class="btn btn-primary">
-                        <i class="bi bi-list me-2"></i>Danh sách sản phẩm
-                    </a>
-                    <a asp-controller="Product" asp-action="Add" asp-area="" class="btn btn-success">
-                        <i class="bi bi-plus-circle me-2"></i>Thêm sản phẩm mới
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <div class="admin-card">
-            <div class="admin-card-header">
-                <i class="bi bi-tags me-2"></i>Quản lý danh mục
-            </div>
-            <div class="admin-card-body">
-                <div class="d-grid gap-2">
-                    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Categories" class="btn btn-primary">
-                        <i class="bi bi-list me-2"></i>Danh sách danh mục
-                    </a>
-                    <a asp-controller="Category" asp-action="Add" asp-area="" class="btn btn-success">
-                        <i class="bi bi-plus-circle me-2"></i>Thêm danh mục mới
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-@if (User.IsInRole(RoleConstants.ADMIN))
-{
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <i class="bi bi-people me-2"></i>Quản lý người dùng
-                    </div>
-                    <div class="admin-card-body">
-                        <div class="d-grid gap-2">
-                            <a asp-area="Admin" asp-controller="User" asp-action="Index" class="btn btn-primary">
-                                <i class="bi bi-list me-2"></i>Danh sách người dùng
-                            </a>
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Tổng đơn hàng</h5>
+                            <h2 class="display-4">@Model.TotalOrders</h2>
                         </div>
+                        <i class="bi bi-cart4 display-4"></i>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <i class="bi bi-shield-lock me-2"></i>Quản lý vai trò
-                    </div>
-                    <div class="admin-card-body">
-                        <div class="d-grid gap-2">
-                            <a asp-area="Admin" asp-controller="Role" asp-action="Index" class="btn btn-primary">
-                                <i class="bi bi-list me-2"></i>Danh sách vai trò
-                            </a>
-                        </div>
-                    </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="text-white stretched-link">
+                        Xem chi tiết
+                    </a>
+                    <div class="small text-white"><i class="bi bi-arrow-right"></i></div>
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Doanh thu</h5>
+                            <h2 class="display-4">@Model.TotalSales.ToString("N0")</h2>
+                        </div>
+                        <i class="bi bi-currency-dollar display-4"></i>
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <span class="text-white">VNĐ</span>
+                    <div class="small text-white"><i class="bi bi-arrow-up-right"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-warning text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title">Trạng thái đơn hàng</h5>
+                            <p class="mb-0">
+                                @if (Model.OrdersByStatus.Any())
+                                {
+                                    foreach (var status in Model.OrdersByStatus)
+                                    {
+                                        <span class="d-block">@status.Key: <strong>@status.Value</strong></span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span>Chưa có dữ liệu</span>
+                                }
+                            </p>
+                        </div>
+                        <i class="bi bi-bar-chart display-4"></i>
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="text-white stretched-link">
+                        Xem chi tiết
+                    </a>
+                    <div class="small text-white"><i class="bi bi-arrow-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">Đơn hàng gần đây</h5>
+        </div>
+        <div class="card-body p-0">
+            @if (!Model.RecentOrders.Any())
+            {
+                <div class="p-4 text-center">
+                    <p class="text-muted mb-0">Chưa có đơn hàng nào.</p>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Mã đơn</th>
+                                <th>Ngày đặt</th>
+                                <th>Khách hàng</th>
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
+                                <th class="text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model.RecentOrders)
+                            {
+                                <tr>
+                                    <td>
+                                        <a asp-area="Admin" asp-controller="Order" asp-action="Details" asp-route-id="@order.Id" class="fw-bold">
+                                            #@order.Id
+                                        </a>
+                                    </td>
+                                    <td>@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>@(order.User?.UserName ?? "N/A")</td>
+                                    <td class="fw-bold">@order.TotalAmount.ToString("N0") VNĐ</td>
+                                    <td>
+                                        @if (order.OrderStatus != null)
+                                        {
+                                            <span class="badge @GetStatusBadgeClass(order.OrderStatusId)">@order.OrderStatus.Name</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">Chờ xác nhận</span>
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        <a asp-area="Admin" asp-controller="Order" asp-action="Details" asp-route-id="@order.Id" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-eye"></i> Chi tiết
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+        <div class="card-footer bg-light">
+            <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="btn btn-outline-primary">
+                <i class="bi bi-list"></i> Xem tất cả đơn hàng
+            </a>
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetStatusBadgeClass(int statusId)
+    {
+        return statusId switch
+        {
+            1 => "bg-secondary", // Chờ xác nhận
+            2 => "bg-primary", // Đã xác nhận
+            3 => "bg-info", // Đang giao hàng
+            4 => "bg-success", // Đã hoàn thành
+            5 => "bg-danger", // Đã hủy
+            _ => "bg-secondary"
+        };
+    }
 }

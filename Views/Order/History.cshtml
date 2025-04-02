@@ -9,78 +9,87 @@
 
   @if (TempData["Success"] != null)
   {
-      <div class="alert alert-success alert-dismissible fade show">
-        @TempData["Success"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      </div>
+    <div class="alert alert-success alert-dismissible fade show">
+      @TempData["Success"]
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
   }
 
   @if (TempData["Error"] != null)
   {
-      <div class="alert alert-danger alert-dismissible fade show">
-        @TempData["Error"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      </div>
+    <div class="alert alert-danger alert-dismissible fade show">
+      @TempData["Error"]
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
   }
 
   @if (!Model.Any())
   {
-      <div class="alert alert-info">
-        <p>Bạn chưa có đơn hàng nào. <a asp-controller="Home" asp-action="Index" class="alert-link">Tiếp tục mua sắm</a></p>
-      </div>
+    <div class="alert alert-info">
+      <p>Bạn chưa có đơn hàng nào. <a asp-controller="Home" asp-action="Index" class="alert-link">Tiếp tục mua sắm</a></p>
+    </div>
   }
   else
   {
-      <div class="card shadow-sm">
-        <div class="card-header bg-light">
-          <h5 class="mb-0">Đơn hàng của tôi</h5>
-        </div>
-        <div class="card-body p-0">
-          <div class="table-responsive">
-            <table class="table table-hover mb-0">
-              <thead class="table-light">
+    <div class="card shadow-sm">
+      <div class="card-header bg-light">
+        <h5 class="mb-0">Đơn hàng của tôi</h5>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Mã đơn hàng</th>
+                <th>Ngày đặt</th>
+                <th>Địa chỉ giao hàng</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+                <th class="text-center">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach (var order in Model)
+              {
                 <tr>
-                  <th>Mã đơn hàng</th>
-                  <th>Ngày đặt</th>
-                  <th>Địa chỉ giao hàng</th>
-                  <th>Tổng tiền</th>
-                  <th>Trạng thái</th>
-                  <th class="text-center">Thao tác</th>
+                  <td>#@order.Id</td>
+                  <td>@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                  <td>@(order.ShippingAddress.Length > 30 ? order.ShippingAddress.Substring(0, 27) + "..." :
+                                    order.ShippingAddress)</td>
+              <td>@order.TotalAmount.ToString("N0") VNĐ</td>
+              <td>
+                @if (order.OrderStatus != null)
+                    {
+                      <span class="badge @GetStatusBadgeClass(order.OrderStatusId)">@order.OrderStatus.Name</span>
+                    }
+                    else
+                    {
+                      <span class="badge bg-secondary">Chờ xác nhận</span>
+                    }
+                  </td>
+                  <td class="text-center">
+                    <div class="btn-group">
+                      <a asp-action="Details" asp-route-id="@order.Id" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-eye"></i> Chi tiết
+                      </a>
+                      @if (order.OrderStatusId != 5 && order.OrderStatusId != 4)
+                      {
+                        <form asp-action="Cancel" asp-route-id="@order.Id" method="post"
+                          onsubmit="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này?');" class="d-inline">
+                          <button type="submit" class="btn btn-sm btn-outline-danger ms-1">
+                            <i class="bi bi-x-circle"></i> Hủy đơn
+                          </button>
+                        </form>
+                      }
+                    </div>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                @foreach (var order in Model)
-                {
-                    <tr>
-                      <td>#@order.Id</td>
-                      <td>@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
-                      <td>@(order.ShippingAddress.Length > 30 ? order.ShippingAddress.Substring(0, 27) + "..." : order.ShippingAddress)</td>
-                      <td>@order.TotalAmount.ToString("N0") VNĐ</td>
-                      <td>
-                        @* Hiển thị trạng thái đơn hàng *@
-                        <span class="badge bg-success">Đã đặt</span>
-                      </td>
-                      <td class="text-center">
-                        <div class="btn-group">
-                          <a asp-action="Details" asp-route-id="@order.Id" class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-eye"></i> Chi tiết
-                          </a>
-                          @* Hiển thị nút hủy đơn hàng nếu đơn chưa được xử lý *@
-                          <form asp-action="Cancel" asp-route-id="@order.Id" method="post"
-                            onsubmit="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này?');" class="d-inline">
-                            <button type="submit" class="btn btn-sm btn-outline-danger ms-1">
-                              <i class="bi bi-x-circle"></i> Hủy đơn
-                            </button>
-                          </form>
-                        </div>
-                      </td>
-                    </tr>
-                }
-              </tbody>
-            </table>
-          </div>
+              }
+            </tbody>
+          </table>
         </div>
       </div>
+    </div>
   }
 
   <div class="mt-4">
@@ -88,4 +97,19 @@
       <i class="bi bi-arrow-left"></i> Tiếp tục mua sắm
     </a>
   </div>
-</div> 
+</div>
+
+@functions {
+  string GetStatusBadgeClass(int statusId)
+  {
+    return statusId switch
+    {
+      1 => "bg-secondary", // Chờ xác nhận
+      2 => "bg-primary", // Đã xác nhận
+      3 => "bg-info", // Đang giao hàng
+      4 => "bg-success", // Đã hoàn thành
+      5 => "bg-danger", // Đã hủy
+      _ => "bg-secondary"
+    };
+  }
+}

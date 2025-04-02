@@ -21,6 +21,7 @@ namespace BanHang.Reposirories.Implementations
           .Include(o => o.OrderDetails)
           .ThenInclude(od => od.Product)
           .Include(o => o.User)
+          .Include(o => o.OrderStatus)
           .OrderByDescending(o => o.OrderDate)
           .ToListAsync();
     }
@@ -31,6 +32,7 @@ namespace BanHang.Reposirories.Implementations
           .Include(o => o.OrderDetails)
           .ThenInclude(od => od.Product)
           .Include(o => o.User)
+          .Include(o => o.OrderStatus)
           .FirstOrDefaultAsync(o => o.Id == id);
     }
 
@@ -39,6 +41,7 @@ namespace BanHang.Reposirories.Implementations
       return await _context.Orders
           .Include(o => o.OrderDetails)
           .ThenInclude(od => od.Product)
+          .Include(o => o.OrderStatus)
           .Where(o => o.UserId == userId)
           .OrderByDescending(o => o.OrderDate)
           .ToListAsync();

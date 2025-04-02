@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Register DB Context 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DeployConnectionString")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("HostConnectionString")));
 
 // Register Identity services
 /*builder.Services.AddI<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -37,10 +37,15 @@ builder.Services.Configure<CloudinarySettings>(
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IOrderStatusRepository, OrderStatusRepository>();
 // Đăng ký các services
 builder.Services.AddScoped<ICloudinaryService, CloudinaryService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+
+
+
+/*
 builder.Services.ConfigureApplicationCookie(options =>
 {
     // Chỉ cho phép cookie được truy cập qua HTTP, không thể truy cập bằng JavaScript
@@ -51,9 +56,10 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LogoutPath = "/Admin/Logout";
     // Đường dẫn chuyển hướng khi người dùng không có quyền truy cập
     options.AccessDeniedPath = "/Admin/AccessDenied";
-    // Đặt thời gian tồn tại của cookie là 5 phút
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-});
+    // Đặt thời gian tồn tại của cookie là 30 phút
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+});*/
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -61,6 +67,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
 builder.Services.AddControllersWithViews();
 var app = builder.Build();
 

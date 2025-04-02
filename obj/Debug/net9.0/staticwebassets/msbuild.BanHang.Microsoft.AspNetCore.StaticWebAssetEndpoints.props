@@ -4,13 +4,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\BanHang.bj2h0lr2f6.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"bj2h0lr2f6"},{"Name":"integrity","Value":"sha256-F8sFoJNP85pBhl945\u002B9NcwdcDrM10mI1B5xoNNwy8D0="},{"Name":"label","Value":"_content/BanHang/BanHang.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1125"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022F8sFoJNP85pBhl945\u002B9NcwdcDrM10mI1B5xoNNwy8D0=\u0022"},{"Name":"Last-Modified","Value":"Sun, 30 Mar 2025 07:17:59 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1125"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022F8sFoJNP85pBhl945\u002B9NcwdcDrM10mI1B5xoNNwy8D0=\u0022"},{"Name":"Last-Modified","Value":"Wed, 02 Apr 2025 06:41:49 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/BanHang/BanHang.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\BanHang.bj2h0lr2f6.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-F8sFoJNP85pBhl945\u002B9NcwdcDrM10mI1B5xoNNwy8D0="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1125"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022F8sFoJNP85pBhl945\u002B9NcwdcDrM10mI1B5xoNNwy8D0=\u0022"},{"Name":"Last-Modified","Value":"Sun, 30 Mar 2025 07:17:59 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1125"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022F8sFoJNP85pBhl945\u002B9NcwdcDrM10mI1B5xoNNwy8D0=\u0022"},{"Name":"Last-Modified","Value":"Wed, 02 Apr 2025 06:41:49 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/BanHang/css/site.c2tiyv64ts.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
