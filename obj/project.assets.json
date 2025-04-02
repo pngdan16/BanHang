@@ -11086,6 +11086,7 @@
       "CloudinaryDotNet >= 1.27.5",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 9.0.3",
       "Microsoft.AspNetCore.Identity.UI >= 9.0.3",
+      "Microsoft.CodeAnalysis.Common >= 4.8.0",
       "Microsoft.EntityFrameworkCore >= 9.0.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.3",
       "Microsoft.EntityFrameworkCore.Sqlite >= 9.0.0",
@@ -11155,6 +11156,10 @@
           "Microsoft.AspNetCore.Identity.UI": {
             "target": "Package",
             "version": "[9.0.3, )"
+          },
+          "Microsoft.CodeAnalysis.Common": {
+            "target": "Package",
+            "version": "[4.8.0, )"
           },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",

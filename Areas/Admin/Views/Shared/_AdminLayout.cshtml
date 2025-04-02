@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <style>
+        /* Admin Dashboard Styles */
+        :root {
+            --admin-primary: #3498db;
+            --admin-secondary: #2c3e50;
+            --admin-success: #2ecc71;
+            --admin-danger: #e74c3c;
+            --admin-warning: #f39c12;
+            --admin-info: #3498db;
+            --admin-light: #ecf0f1;
+            --admin-dark: #2c3e50;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Dashboard Sidebar */
+        .admin-sidebar {
+            background-color: var(--admin-dark);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            overflow-y: auto;
+            transition: all 0.3s;
+            z-index: 1000;
+            padding-top: 60px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-brand {
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-brand a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .admin-sidebar .nav-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .admin-sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .admin-sidebar .nav-link:hover,
+        .admin-sidebar .nav-link.active {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-sidebar .nav-link i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .admin-content {
+            margin-left: 250px;
+            padding-top: 80px;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 20px;
+            transition: all 0.3s;
+            min-height: 100vh;
+        }
+
+        .admin-content-header {
+            background-color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .admin-content-title {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .admin-card {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .admin-card-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+            background-color: #f8f9fa;
+            font-weight: 500;
+        }
+
+        .admin-card-body {
+            padding: 20px;
+        }
+
+        /* Admin Navbar */
+        .admin-navbar {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            padding: 10px 20px;
+            height: 60px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .admin-navbar-brand {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--admin-dark);
+            margin-left: 250px;
+        }
+
+        .admin-navbar .dropdown-menu {
+            margin-top: 13px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive */
+        @* Start media query *@
+        @@media (max-width: 768px) {
+            .admin-sidebar {
+                width: 60px;
+                padding-top: 60px;
+            }
+
+            .admin-sidebar .nav-link span {
+                display: none;
+            }
+
+            .admin-sidebar .nav-link i {
+                margin-right: 0;
+                font-size: 1.3rem;
+            }
+
+            .admin-content {
+                margin-left: 60px;
+                padding-top: 70px; /* Slightly adjust top padding for mobile */
+            }
+
+            .admin-navbar-brand {
+                margin-left: 60px;
+            }
+
+            .sidebar-brand {
+                display: none;
+            }
+        }
+        @* End media query *@
+
+        /* Custom Elements */
+        .stat-card {
+            border-radius: 5px;
+            padding: 20px;
+            color: white;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .stat-card-title {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 0;
+        }
+
+        .stat-card-icon {
+            font-size: 2.5rem;
+            opacity: 0.5;
+        }
+
+        .stat-card.product {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .stat-card.category {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .stat-card.user {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .stat-card.order {
+            background: linear-gradient(135deg, #f39c12, #d35400);
+        }
+
+        /* Table Styles */
+        .admin-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .admin-table th {
+            background-color: #f8f9fa;
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .admin-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Action Buttons */
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            line-height: 32px;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-badge.active {
+            background-color: #e8f7ee;
+            color: #28a745;
+        }
+
+        .status-badge.pending {
+            background-color: #fff8e1;
+            color: #ffc107;
+        }
+
+        .status-badge.inactive {
+            background-color: #f8d7da;
+            color: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Admin Navbar -->
+    <nav class="navbar admin-navbar">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <a href="#" class="d-md-none me-3 text-dark" id="sidebar-toggle">
+                    <i class="bi bi-list fs-4"></i>
+                </a>
+                <span class="admin-navbar-brand">Admin Dashboard</span>
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle text-dark" href="#" id="userDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle me-1"></i>
+                        <span class="d-none d-md-inline">Tài khoản</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index"><i
+                                    class="bi bi-gear me-2"></i>Cài đặt</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+                                asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button type="submit" class="dropdown-item"><i
+                                        class="bi bi-box-arrow-right me-2"></i>Đăng xuất</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Sidebar -->
+    <div class="admin-sidebar">
+        <div class="sidebar-brand">
+            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                <i class="bi bi-speedometer2 me-2"></i>Admin Panel
+            </a>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Dashboard" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")"
+                    asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                    <i class="bi bi-house-door"></i>
+                    <span>Trang chủ</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Products" ? "active" : "")"
+                    asp-area="Admin" asp-controller="Dashboard" asp-action="Products">
+                    <i class="bi bi-box-seam"></i>
+                    <span>Quản lý sản phẩm</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Categories" ? "active" : "")"
+                    asp-area="Admin" asp-controller="Dashboard" asp-action="Categories">
+                    <i class="bi bi-tags"></i>
+                    <span>Quản lý danh mục</span>
+                </a>
+            </li>
+            <li class="nav-item">   
+                <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "Orders" ? "active" : "")"
+                    asp-area="Admin" asp-controller="Order" asp-action="Index">
+                    <i class="bi bi-cart-check"></i>
+                    <span>Quản lý đơn hàng</span>
+                </a>
+            </li>
+            @if (User.IsInRole(BanHang.Models.Identity.RoleConstants.ADMIN))
+            {
+                <li class="nav-item">
+                    <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Users" ? "active" : "")"
+                        asp-area="Admin" asp-controller="Users" asp-action="Index">
+                        <i class="bi bi-people"></i>
+                        <span>Quản lý người dùng</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Role" ? "active" : "")"
+                        asp-area="Admin" asp-controller="Role" asp-action="Index">
+                        <i class="bi bi-shield-lock"></i>
+                        <span>Quản lý vai trò</span>
+                    </a>
+                </li>
+            }
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-arrow-left-circle"></i>
+                    <span>Về trang chính</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="admin-content">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @RenderBody()
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        // Toggle sidebar on mobile
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function () {
+                    document.querySelector('.admin-sidebar').classList.toggle('d-none');
+                });
+            }
+
+            // Initialize dropdowns
+            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+            dropdownElementList.map(function (element) {
+                return new bootstrap.Dropdown(element);
+            });
+
+            // Auto-hide alerts after 5 seconds
+            setTimeout(function () {
+                $('.alert-success, .alert-danger').alert('close');
+            }, 5000);
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

@@ -19,12 +19,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BanHang.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
@@ -36,7 +39,8 @@ namespace BanHang.Areas.Identity.Pages.Account
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +48,7 @@ namespace BanHang.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -103,13 +108,50 @@ namespace BanHang.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            public string? Role { get; set; }
+            [ValidateNever]
+            public IEnumerable<SelectListItem> RoleList { get; set; }
         }
 
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            ReturnUrl = returnUrl;
+            // Kiểm tra và tạo các role mặc định nếu chưa tồn tại
+            if (!await _roleManager.RoleExistsAsync(RoleConstants.CUSTOMER))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(RoleConstants.CUSTOMER));
+                await _roleManager.CreateAsync(new IdentityRole(RoleConstants.EMPLOYEE));
+                await _roleManager.CreateAsync(new IdentityRole(RoleConstants.ADMIN));
+                await _roleManager.CreateAsync(new IdentityRole(RoleConstants.COMPANY));
+            }
+
+            // Khởi tạo giá trị cho Input
+            Input = new()
+            {
+                // Tạo danh sách các role để hiển thị trong dropdown
+                RoleList = _roleManager.Roles.Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Name
+                }).ToList()
+            };
+            // Lưu URL trả về
+            returnUrl = returnUrl ?? Url.Content("~/");
+
+            // Lấy danh sách các phương thức đăng nhập bên ngoài
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            // Xử lý lỗi nếu có
+            try
+            {
+                // Thêm code xử lý dữ liệu khác nếu cần
+            }
+            catch (Exception ex)
+            {
+                // Xử lý ngoại lệ
+                ModelState.AddModelError(string.Empty, "Đã xảy ra lỗi: " + ex.Message);
+            }
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -127,7 +169,14 @@ namespace BanHang.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
+                    if (!String.IsNullOrEmpty(Input.Role))
+                    {
+                        await _userManager.AddToRoleAsync(user, Input.Role);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, RoleConstants.CUSTOMER);
+                    }
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

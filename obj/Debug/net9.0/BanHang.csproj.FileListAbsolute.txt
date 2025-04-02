@@ -359,6 +359,7 @@ C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\compressed
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\compressed\yfc7ypekbg-mlv21k5csn.gz
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\compressed\qanl3icjut-c2tiyv64ts.gz
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\compressed\qb0k6yducv-61n19gt1b8.gz
+C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\compressed\tqhnkdviix-ugr3ga99a3.gz
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\compressed\ie18ak5w79-xtxxf3hu2r.gz
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\compressed\rqc4a2tp03-agp80tu62r.gz
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\compressed\rwywdop70u-st1cbwfwo5.gz
@@ -433,3 +434,4 @@ C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\refint\Ban
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\BanHang.pdb
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\BanHang.genruntimeconfig.cache
 C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\ref\BanHang.dll
+C:\Users\HieuNghia\Downloads\BanHang\BanHang\BanHang\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

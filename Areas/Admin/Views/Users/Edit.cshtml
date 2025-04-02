@@ -1,0 +1,99 @@
+@model BanHang.Models.ViewModels.UserEditViewModel
+@{
+  ViewData["Title"] = "Chỉnh sửa người dùng";
+  Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid p-4">
+  <h1 class="h3 mb-2 text-gray-800">Chỉnh sửa người dùng</h1>
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+      <h6 class="m-0 font-weight-bold text-primary">Thông tin người dùng</h6>
+      <a asp-action="Index" class="btn btn-secondary btn-sm">
+        <i class="bi bi-arrow-left"></i> Quay lại
+      </a>
+    </div>
+    <div class="card-body">
+      <form asp-action="Edit" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label asp-for="UserName" class="form-label">Tên đăng nhập</label>
+            <input asp-for="UserName" class="form-control" readonly />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label asp-for="FullName" class="form-label">Họ tên</label>
+            <input asp-for="FullName" class="form-control" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label asp-for="PhoneNumber" class="form-label">Số điện thoại</label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+          </div>
+        </div>
+
+        <div class="form-check mb-3">
+          <input class="form-check-input" asp-for="IsActive" />
+          <label class="form-check-label" asp-for="IsActive">
+            Hoạt động
+          </label>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Vai trò</label>
+          <div class="row">
+            @if (Model.AllRoles != null && Model.AllRoles.Any())
+            {
+                  foreach (var role in Model.AllRoles)
+                  {
+                        <div class="col-md-4 mb-2">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="SelectedRoles" value="@role.Name"
+                              id="role-@role.Id" @(Model.SelectedRoles.Contains(role.Name) ? "checked" : "") />
+                            <label class="form-check-label" for="role-@role.Id">
+                              @role.Name
+                            </label>
+                          </div>
+                        </div>
+                  }
+            }
+            else
+            {
+                  <div class="col-12">
+                    <p class="text-muted">Không có vai trò nào được cấu hình</p>
+                  </div>
+            }
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-save"></i> Lưu thay đổi
+          </button>
+          <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info ms-1">
+            <i class="bi bi-info-circle"></i> Xem chi tiết
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+  }
+}
